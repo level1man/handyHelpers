@@ -24,7 +24,7 @@ connection.connect(err => {
 
 const getJobs = () => {
   const command = `
-    SELECT * FROM joblisting WHERE completed=false`;
+    SELECT j.*, u.username FROM joblisting j, users u WHERE u.id=j.posterid AND j.completed=false ORDER BY id DESC`;
   return connection.query(command);
 };
 

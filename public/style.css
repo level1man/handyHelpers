@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto');
+
 body {
   font-family:'Montserrat',sans-serif;
   background-color: #f7f7f7;
@@ -45,6 +47,8 @@ h3 {
   width: 500px;
   height: 400px;
   margin: 20px;
+  padding: 20px;
+  box-shadow: 0 8px 13px 0 rgba(0,0,0,0.2);
 
 }
 
@@ -73,6 +77,7 @@ h3 {
 .profile {
   display: grid;
   grid-template-columns: 20% 60% 20%;
+  font-family:'Roboto',sans-serif;
 
 }
 
@@ -189,7 +194,12 @@ button:hover {
 #job-detail img{
   justify-self: center;
   object-fit: cover;
+  margin: 5px
 
+}
+
+#job-detail h2,h3,p{
+  margin: 5px;
 }
 
 #job-detail #accept{
@@ -204,4 +214,8 @@ button:hover {
 
 .display-none {
   display: none;
+}
+
+iframe {
+  border: 5px solid #70e000;
 }

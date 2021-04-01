@@ -4,11 +4,25 @@ import Listing from './Listing';
 
 const Request = ({currentUser}) => {
 
+  const [newJob, setNewJob] = useState({});
+  const [jobListing, setJobListing] = useState([]);
   const [currentJob, setCurrentJob] = useState({});
 
+  useEffect(() => {
+    getList();
+  },[newJob]);
+
+  const getList = () => {
+    axios.get(`/jobs`)
+    .then((data)=>setJobListing(data.data))
+    .catch((err) => console.log(err));
+  }
+
+
+
   const handleChange = (event) => {
-    setCurrentJob({
-      ...currentJob,
+    setNewJob({
+      ...newJob,
       posterid: currentUser.id,
       [event.target.name]: event.target.value
     });
@@ -16,11 +30,11 @@ const Request = ({currentUser}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setCurrentJob({
-      ...currentJob,
+    setNewJob({
+      ...newJob,
       posterid: currentUser.id,
     });
-    axios.post('/jobs', currentJob);
+    axios.post('/jobs', newJob);
     event.target.reset();
     //this.props.addAttendee(this.state);
   }
@@ -31,9 +45,11 @@ const Request = ({currentUser}) => {
         <img src={currentUser.photo} id="profile-pic" width="200px" height="200px" />
         <div>
           <h3>{currentUser.userName}</h3>
-          <p>Job Ruquests: 100</p>
-          <p>Job Completed: 75</p>
+          <p>100 Job Ruquests</p>
+          <p>75 Job Completed</p>
+          <p>269 people follow</p>
           <img src="./images/star1.png"  id="star-pic" width="200px" />
+
         </div>
       </div>
       <div className='p-body'>
@@ -53,10 +69,10 @@ const Request = ({currentUser}) => {
           </label>
           <button>POST RQUEST</button>
         </form>
-        <img src="./images/map.jpeg" id="map" width="750px" />
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14833.426846187203!2d-158.07157747047043!3d21.64997692064109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c005993278aa08f%3A0x7af5606caf43ba2a!2zU2hhcmvigJlzIENvdmU!5e0!3m2!1sen!2sus!4v1617298139487!5m2!1sen!2sus" width="780" height="450" allowfullscreen="" loading="lazy"></iframe>
       </div>
 
-      <Listing id="listing" currentUser={currentUser}/>
+      <Listing id="listing" currentUser={currentUser} jobListing={jobListing} setCurrentJob={setCurrentJob} currentJob={currentJob} getList={getList}/>
     </div>
   )
 };

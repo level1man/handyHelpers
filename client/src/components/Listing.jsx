@@ -59,20 +59,20 @@ import Modal from './Modal';
 //     fullfillerId: 0
 //   },
 // ]
-const Listing = ({currentUser}) => {
+const Listing = ({currentUser, jobListing, setCurrentJob, currentJob, getList}) => {
   const [modal, setModal] = useState(false);
-  const [jobListing, setJobListing] = useState([]);
-  const [currentJob, setCurrentJob] = useState({});
+  // const [jobListing, setJobListing] = useState([]);
+  // const [currentJob, setCurrentJob] = useState({});
 
   useEffect(() => {
     getList();
   },[currentJob]);
 
-  const getList = () => {
-    axios.get(`/jobs`)
-    .then((data)=>setJobListing(data.data))
-    .catch((err) => console.log(err));
-  }
+  // const getList = () => {
+  //   axios.get(`/jobs`)
+  //   .then((data)=>setJobListing(data.data))
+  //   .catch((err) => console.log(err));
+  // }
 
   const showModal = (event, job) => {
     setModal(true);
@@ -94,7 +94,7 @@ const Listing = ({currentUser}) => {
       <h2>Pending Jobs</h2>
       {jobListing.map((job) => {
            if(job.pending === true) {
-             return <div className="job" key={job.id}>{`${job.jobdescription}`}</div>
+             return <div className="job" key={job.id} onClick={(e) => showModal(e, job)}>{`${job.jobdescription}`}</div>
            }
         })}
       <h2>Requests History</h2>

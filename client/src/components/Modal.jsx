@@ -1,5 +1,6 @@
 import React from 'react';
 import JobDetail from './JobDetail';
+import Pending from './Pending';
 
 
 const Modal = ({ handleClose, show, children, currentJob, currentUser, setCurrentJob }) => {
@@ -8,7 +9,7 @@ const Modal = ({ handleClose, show, children, currentJob, currentUser, setCurren
   return (
     <div className={showHideClassName}>
       <section className="modal-main">
-      <JobDetail currentJob={currentJob} handleClose={handleClose} currentUser={currentUser} setCurrentJob={setCurrentJob}/>
+      {!currentJob.pending ? <JobDetail currentJob={currentJob} handleClose={handleClose} currentUser={currentUser} setCurrentJob={setCurrentJob}/> :<Pending currentJob={currentJob} handleClose={handleClose} currentUser={currentUser} setCurrentJob={setCurrentJob}/> }
         {children}
         <button type="button" onClick={handleClose}>
           Close

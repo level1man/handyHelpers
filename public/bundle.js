@@ -1902,7 +1902,7 @@ var JobDetail = function JobDetail(_ref) {
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     id: "job-detail"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, currentJob.jobdescription), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, currentJob.jobdescription), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "BY"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, currentJob.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
     src: "./images/couch.jpeg",
     width: "200px",
     height: "200px"
@@ -1910,7 +1910,13 @@ var JobDetail = function JobDetail(_ref) {
     type: "button",
     id: "accept",
     onClick: markPending
-  }, "Accept Job")));
+  }, "Accept Job"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    type: "button",
+    id: "accept",
+    onClick: function onClick() {
+      return alert('start chatting');
+    }
+  }, "Send Messages")));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (JobDetail);
@@ -2005,34 +2011,26 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 // ]
 
 var Listing = function Listing(_ref) {
-  var currentUser = _ref.currentUser;
+  var currentUser = _ref.currentUser,
+      jobListing = _ref.jobListing,
+      setCurrentJob = _ref.setCurrentJob,
+      currentJob = _ref.currentJob,
+      getList = _ref.getList;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
       modal = _useState2[0],
-      setModal = _useState2[1];
+      setModal = _useState2[1]; // const [jobListing, setJobListing] = useState([]);
+  // const [currentJob, setCurrentJob] = useState({});
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-      _useState4 = _slicedToArray(_useState3, 2),
-      jobListing = _useState4[0],
-      setJobListing = _useState4[1];
-
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
-      _useState6 = _slicedToArray(_useState5, 2),
-      currentJob = _useState6[0],
-      setCurrentJob = _useState6[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getList();
-  }, [currentJob]);
-
-  var getList = function getList() {
-    axios__WEBPACK_IMPORTED_MODULE_1___default().get("/jobs").then(function (data) {
-      return setJobListing(data.data);
-    })["catch"](function (err) {
-      return console.log(err);
-    });
-  };
+  }, [currentJob]); // const getList = () => {
+  //   axios.get(`/jobs`)
+  //   .then((data)=>setJobListing(data.data))
+  //   .catch((err) => console.log(err));
+  // }
 
   var showModal = function showModal(event, job) {
     setModal(true);
@@ -2059,7 +2057,10 @@ var Listing = function Listing(_ref) {
     if (job.pending === true) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "job",
-        key: job.id
+        key: job.id,
+        onClick: function onClick(e) {
+          return showModal(e, job);
+        }
       }, "".concat(job.jobdescription));
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Requests History"), jobListing.map(function (job) {
@@ -2201,6 +2202,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _JobDetail__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./JobDetail */ "./client/src/components/JobDetail.jsx");
+/* harmony import */ var _Pending__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Pending */ "./client/src/components/Pending.jsx");
+
 
 
 
@@ -2216,7 +2219,12 @@ var Modal = function Modal(_ref) {
     className: showHideClassName
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
     className: "modal-main"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_JobDetail__WEBPACK_IMPORTED_MODULE_1__.default, {
+  }, !currentJob.pending ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_JobDetail__WEBPACK_IMPORTED_MODULE_1__.default, {
+    currentJob: currentJob,
+    handleClose: handleClose,
+    currentUser: currentUser,
+    setCurrentJob: setCurrentJob
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Pending__WEBPACK_IMPORTED_MODULE_2__.default, {
     currentJob: currentJob,
     handleClose: handleClose,
     currentUser: currentUser,
@@ -2228,6 +2236,43 @@ var Modal = function Modal(_ref) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Modal);
+
+/***/ }),
+
+/***/ "./client/src/components/Pending.jsx":
+/*!*******************************************!*\
+  !*** ./client/src/components/Pending.jsx ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Request__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Request */ "./client/src/components/Request.jsx");
+
+
+
+
+var Pending = function Pending(_ref) {
+  var currentJob = _ref.currentJob,
+      handleClose = _ref.handleClose,
+      currentUser = _ref.currentUser,
+      setCurrentJob = _ref.setCurrentJob;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    id: "job-detail"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, currentJob.jobdescription), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "accepted BY"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, currentJob.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    src: "./images/couch.jpeg",
+    width: "200px",
+    height: "200px"
+  }));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Pending);
 
 /***/ }),
 
@@ -2273,21 +2318,43 @@ var Request = function Request(_ref) {
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
       _useState2 = _slicedToArray(_useState, 2),
-      currentJob = _useState2[0],
-      setCurrentJob = _useState2[1];
+      newJob = _useState2[0],
+      setNewJob = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      jobListing = _useState4[0],
+      setJobListing = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+      _useState6 = _slicedToArray(_useState5, 2),
+      currentJob = _useState6[0],
+      setCurrentJob = _useState6[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    getList();
+  }, [newJob]);
+
+  var getList = function getList() {
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get("/jobs").then(function (data) {
+      return setJobListing(data.data);
+    })["catch"](function (err) {
+      return console.log(err);
+    });
+  };
 
   var handleChange = function handleChange(event) {
-    setCurrentJob(_objectSpread(_objectSpread({}, currentJob), {}, _defineProperty({
+    setNewJob(_objectSpread(_objectSpread({}, newJob), {}, _defineProperty({
       posterid: currentUser.id
     }, event.target.name, event.target.value)));
   };
 
   var handleSubmit = function handleSubmit(event) {
     event.preventDefault();
-    setCurrentJob(_objectSpread(_objectSpread({}, currentJob), {}, {
+    setNewJob(_objectSpread(_objectSpread({}, newJob), {}, {
       posterid: currentUser.id
     }));
-    axios__WEBPACK_IMPORTED_MODULE_1___default().post('/jobs', currentJob);
+    axios__WEBPACK_IMPORTED_MODULE_1___default().post('/jobs', newJob);
     event.target.reset(); //this.props.addAttendee(this.state);
   };
 
@@ -2300,7 +2367,7 @@ var Request = function Request(_ref) {
     id: "profile-pic",
     width: "200px",
     height: "200px"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, currentUser.userName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Job Ruquests: 100"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Job Completed: 75"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, currentUser.userName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "100 Job Ruquests"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "75 Job Completed"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "269 people follow"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
     src: "./images/star1.png",
     id: "star-pic",
     width: "200px"
@@ -2326,13 +2393,19 @@ var Request = function Request(_ref) {
     type: "text",
     name: "jobdescription",
     onChange: handleChange
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "POST RQUEST")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-    src: "./images/map.jpeg",
-    id: "map",
-    width: "750px"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "POST RQUEST")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("iframe", {
+    src: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14833.426846187203!2d-158.07157747047043!3d21.64997692064109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c005993278aa08f%3A0x7af5606caf43ba2a!2zU2hhcmvigJlzIENvdmU!5e0!3m2!1sen!2sus!4v1617298139487!5m2!1sen!2sus",
+    width: "780",
+    height: "450",
+    allowfullscreen: "",
+    loading: "lazy"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Listing__WEBPACK_IMPORTED_MODULE_2__.default, {
     id: "listing",
-    currentUser: currentUser
+    currentUser: currentUser,
+    jobListing: jobListing,
+    setCurrentJob: setCurrentJob,
+    currentJob: currentJob,
+    getList: getList
   }));
 };
 
