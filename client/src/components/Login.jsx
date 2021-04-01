@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import axios from 'axios';
-import Topbar from './Topbar';
 import Request from './Request';
 
 
@@ -10,11 +9,13 @@ const users = [
     userName: 'babyshark',
     passWord: 'babyshark',
     id: 1,
+    photo: 'https://i.pinimg.com/originals/25/b6/1f/25b61fa1dfeff4cf7c1691614ed9b38e.jpg'
   },
   {
     userName: 'daddyshark',
     passWord: 'daddyshark',
     id: 2,
+    photo: 'https://clipart.world/wp-content/uploads/2020/08/daddy-shark.jpg'
   }
 ]
 
@@ -36,7 +37,8 @@ const Login = () => {
         console.log('here');
         setCurrentUser({
           ...currentUser,
-          id: users[i].id
+          id: users[i].id,
+          photo: users[i].photo
         });
         setLoginStatus(true);
       }
@@ -46,15 +48,16 @@ const Login = () => {
   if(loginStatus === true){
     return (
       <div>
-        <Topbar />
-        <Request currentId = {currentUser.id}/>
-     </div>
+        <Request currentUser = {currentUser}/>
+      </div>
+
+
     )
   } else {
     return (
-      <div>
-        <Topbar />
-        <form className="attendee-form" onSubmit={handleSubmit}>
+      <div className="bg-img">
+        <form className="job-form" id="login" onSubmit={handleSubmit}>
+          <h1>Get a hand from your neighbors</h1>
           <h2>Please Login</h2>
           <label>Username:
             <input type="text" name="userName" onChange={handleChange}/>

@@ -1847,10 +1847,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Topbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Topbar */ "./client/src/components/Topbar.jsx");
-/* harmony import */ var _Request__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Request */ "./client/src/components/Request.jsx");
-/* harmony import */ var _Login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Login */ "./client/src/components/Login.jsx");
-
+/* harmony import */ var _Request__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Request */ "./client/src/components/Request.jsx");
+/* harmony import */ var _Login__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Login */ "./client/src/components/Login.jsx");
 
 
 
@@ -1858,10 +1856,64 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Login__WEBPACK_IMPORTED_MODULE_4__.default, null);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "main"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "topbar"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "handyHelpers")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Login__WEBPACK_IMPORTED_MODULE_3__.default, null));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
+
+/***/ }),
+
+/***/ "./client/src/components/JobDetail.jsx":
+/*!*********************************************!*\
+  !*** ./client/src/components/JobDetail.jsx ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Request__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Request */ "./client/src/components/Request.jsx");
+
+
+
+
+var JobDetail = function JobDetail(_ref) {
+  var currentJob = _ref.currentJob,
+      handleClose = _ref.handleClose,
+      currentUser = _ref.currentUser,
+      setCurrentJob = _ref.setCurrentJob;
+
+  var markPending = function markPending() {
+    axios__WEBPACK_IMPORTED_MODULE_1___default().put('/jobs', {
+      user: currentUser,
+      job: currentJob
+    }).then(setCurrentJob({}));
+    handleClose();
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    id: "job-detail"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, currentJob.jobdescription), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    src: "./images/couch.jpeg",
+    width: "200px",
+    height: "200px"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    type: "button",
+    id: "accept",
+    onClick: markPending
+  }, "Accept Job")));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (JobDetail);
 
 /***/ }),
 
@@ -1879,78 +1931,150 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Modal */ "./client/src/components/Modal.jsx");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
-var jobListing = [{
-  id: 1,
-  firstName: 'Baby',
-  lastName: 'Shark',
-  phone: '206-123-1234',
-  description: 'dump a couch1',
-  completed: false,
-  posterId: 1,
-  fullfillerId: 0
-}, {
-  id: 2,
-  firstName: 'Baby',
-  lastName: 'Shark',
-  phone: '206-123-1234',
-  description: 'dump a couch2',
-  completed: true,
-  posterId: 2,
-  fullfillerId: 1
-}, {
-  id: 3,
-  firstName: 'Baby2',
-  lastName: 'Shark2',
-  phone: '206-123-1234',
-  description: 'dump a couch3',
-  completed: false,
-  posterId: 1,
-  fullfillerId: 0
-}, {
-  id: 4,
-  firstName: 'Baby3',
-  lastName: 'Shark3',
-  phone: '206-123-1234',
-  description: 'dump a couch4',
-  completed: true,
-  posterId: 1,
-  fullfillerId: 2
-}, {
-  id: 5,
-  firstName: 'Baby4',
-  lastName: 'Shark4',
-  phone: '206-123-1234',
-  description: 'dump a couch5',
-  completed: false,
-  posterId: 1,
-  fullfillerId: 0
-}];
+
+ // const jobListing = [
+//   {
+//     id: 1,
+//     firstName: 'Baby',
+//     lastName: 'Shark',
+//     phone: '206-123-1234',
+//     description: 'dump a couch1',
+//     completed: false,
+//     pending:false,
+//     posterId: 1,
+//     fullfillerId: 0
+//   },
+//   {
+//     id: 2,
+//     firstName: 'Baby',
+//     lastName: 'Shark',
+//     phone: '206-123-1234',
+//     description: 'dump a couch2',
+//     completed: true,
+//     pending:false,
+//     posterId: 2,
+//     fullfillerId: 1
+//   },
+//   {
+//     id: 3,
+//     firstName: 'Baby2',
+//     lastName: 'Shark2',
+//     phone: '206-123-1234',
+//     description: 'dump a couch3',
+//     completed: false,
+//     pending:true,
+//     posterId: 1,
+//     fullfillerId: 0
+//   },
+//   {
+//     id: 4,
+//     firstName: 'Baby3',
+//     lastName: 'Shark3',
+//     phone: '206-123-1234',
+//     description: 'dump a couch4',
+//     completed: true,
+//     pending:false,
+//     posterId: 1,
+//     fullfillerId: 2
+//   },
+//   {
+//     id: 5,
+//     firstName: 'Baby4',
+//     lastName: 'Shark4',
+//     phone: '206-123-1234',
+//     description: 'dump a couch5',
+//     completed: false,
+//     pending:false,
+//     posterId: 1,
+//     fullfillerId: 0
+//   },
+// ]
 
 var Listing = function Listing(_ref) {
-  var currentId = _ref.currentId;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Open Jobs"), jobListing.map(function (job) {
-    if (!job.completed) {
+  var currentUser = _ref.currentUser;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      modal = _useState2[0],
+      setModal = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      jobListing = _useState4[0],
+      setJobListing = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+      _useState6 = _slicedToArray(_useState5, 2),
+      currentJob = _useState6[0],
+      setCurrentJob = _useState6[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    getList();
+  }, [currentJob]);
+
+  var getList = function getList() {
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get("/jobs").then(function (data) {
+      return setJobListing(data.data);
+    })["catch"](function (err) {
+      return console.log(err);
+    });
+  };
+
+  var showModal = function showModal(event, job) {
+    setModal(true);
+    setCurrentJob(job);
+  };
+
+  var hideModal = function hideModal() {
+    setModal(false);
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "jobs"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Open Jobs"), jobListing.map(function (job) {
+    if (!job.completed && !job.pending && job.posterid !== currentUser.id) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "job",
-        key: job.id
-      }, "".concat(job.description));
+        key: job.id,
+        onClick: function onClick(e) {
+          return showModal(e, job);
+        }
+      }, "".concat(job.jobdescription));
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Completed Jobs"), jobListing.map(function (job) {
-    if (job.fullfillerId === currentId) {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Pending Jobs"), jobListing.map(function (job) {
+    if (job.pending === true) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "job",
         key: job.id
-      }, "".concat(job.description));
+      }, "".concat(job.jobdescription));
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Requests History"), jobListing.map(function (job) {
-    if (job.posterId === currentId) {
+    if (job.posterid === currentUser.id) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "job",
         key: job.id
-      }, "".concat(job.description));
+      }, "".concat(job.jobdescription));
     }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Modal__WEBPACK_IMPORTED_MODULE_2__.default, {
+    currentJob: currentJob,
+    setCurrentJob: setCurrentJob,
+    show: modal,
+    handleClose: hideModal,
+    currentUser: currentUser
   }));
 };
 
@@ -1972,8 +2096,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Topbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Topbar */ "./client/src/components/Topbar.jsx");
-/* harmony import */ var _Request__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Request */ "./client/src/components/Request.jsx");
+/* harmony import */ var _Request__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Request */ "./client/src/components/Request.jsx");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -1996,15 +2119,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 var users = [{
   userName: 'babyshark',
   passWord: 'babyshark',
-  id: 1
+  id: 1,
+  photo: 'https://i.pinimg.com/originals/25/b6/1f/25b61fa1dfeff4cf7c1691614ed9b38e.jpg'
 }, {
   userName: 'daddyshark',
   passWord: 'daddyshark',
-  id: 2
+  id: 2,
+  photo: 'https://clipart.world/wp-content/uploads/2020/08/daddy-shark.jpg'
 }];
 
 var Login = function Login() {
@@ -2029,7 +2153,8 @@ var Login = function Login() {
       if (currentUser.userName === users[i].userName && currentUser.passWord === users[i].passWord) {
         console.log('here');
         setCurrentUser(_objectSpread(_objectSpread({}, currentUser), {}, {
-          id: users[i].id
+          id: users[i].id,
+          photo: users[i].photo
         }));
         setLoginStatus(true);
       }
@@ -2037,14 +2162,17 @@ var Login = function Login() {
   };
 
   if (loginStatus === true) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Topbar__WEBPACK_IMPORTED_MODULE_2__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Request__WEBPACK_IMPORTED_MODULE_3__.default, {
-      currentId: currentUser.id
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Request__WEBPACK_IMPORTED_MODULE_2__.default, {
+      currentUser: currentUser
     }));
   } else {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Topbar__WEBPACK_IMPORTED_MODULE_2__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
-      className: "attendee-form",
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "bg-img"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+      className: "job-form",
+      id: "login",
       onSubmit: handleSubmit
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Please Login"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Username:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Get a hand from your neighbors"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Please Login"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Username:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
       type: "text",
       name: "userName",
       onChange: handleChange
@@ -2057,6 +2185,49 @@ var Login = function Login() {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Login);
+
+/***/ }),
+
+/***/ "./client/src/components/Modal.jsx":
+/*!*****************************************!*\
+  !*** ./client/src/components/Modal.jsx ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _JobDetail__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./JobDetail */ "./client/src/components/JobDetail.jsx");
+
+
+
+var Modal = function Modal(_ref) {
+  var handleClose = _ref.handleClose,
+      show = _ref.show,
+      children = _ref.children,
+      currentJob = _ref.currentJob,
+      currentUser = _ref.currentUser,
+      setCurrentJob = _ref.setCurrentJob;
+  var showHideClassName = show ? "modal display-block" : "modal display-none";
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: showHideClassName
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
+    className: "modal-main"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_JobDetail__WEBPACK_IMPORTED_MODULE_1__.default, {
+    currentJob: currentJob,
+    handleClose: handleClose,
+    currentUser: currentUser,
+    setCurrentJob: setCurrentJob
+  }), children, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    type: "button",
+    onClick: handleClose
+  }, "Close")));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Modal);
 
 /***/ }),
 
@@ -2098,7 +2269,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var Request = function Request(_ref) {
-  var currentId = _ref.currentId;
+  var currentUser = _ref.currentUser;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
       _useState2 = _slicedToArray(_useState, 2),
@@ -2106,17 +2277,38 @@ var Request = function Request(_ref) {
       setCurrentJob = _useState2[1];
 
   var handleChange = function handleChange(event) {
-    setCurrentJob(_objectSpread(_objectSpread({}, currentJob), {}, _defineProperty({}, event.target.name, event.target.value)));
+    setCurrentJob(_objectSpread(_objectSpread({}, currentJob), {}, _defineProperty({
+      posterid: currentUser.id
+    }, event.target.name, event.target.value)));
   };
 
   var handleSubmit = function handleSubmit(event) {
-    event.preventDefault(); //this.props.addAttendee(this.state);
-
-    console.log(currentJob);
+    event.preventDefault();
+    setCurrentJob(_objectSpread(_objectSpread({}, currentJob), {}, {
+      posterid: currentUser.id
+    }));
+    axios__WEBPACK_IMPORTED_MODULE_1___default().post('/jobs', currentJob);
+    event.target.reset(); //this.props.addAttendee(this.state);
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Request"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
-    className: "attendee-form",
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "profile"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "userinfo"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    src: currentUser.photo,
+    id: "profile-pic",
+    width: "200px",
+    height: "200px"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, currentUser.userName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Job Ruquests: 100"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Job Completed: 75"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    src: "./images/star1.png",
+    id: "star-pic",
+    width: "200px"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "p-body"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+    className: "job-form",
+    id: "request-form",
     onSubmit: handleSubmit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Make a REQUEST"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "First Name:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
     type: "text",
@@ -2130,44 +2322,21 @@ var Request = function Request(_ref) {
     type: "text",
     name: "phone",
     onChange: handleChange
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Job Description:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("textarea", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Job Description:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
     type: "text",
-    name: "description",
+    name: "jobdescription",
     onChange: handleChange
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "POST RQUEST")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Listing__WEBPACK_IMPORTED_MODULE_2__.default, {
-    currentId: currentId
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "POST RQUEST")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    src: "./images/map.jpeg",
+    id: "map",
+    width: "750px"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Listing__WEBPACK_IMPORTED_MODULE_2__.default, {
+    id: "listing",
+    currentUser: currentUser
   }));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Request);
-
-/***/ }),
-
-/***/ "./client/src/components/Topbar.jsx":
-/*!******************************************!*\
-  !*** ./client/src/components/Topbar.jsx ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-
-
-
-var Topbar = function Topbar() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "handyHelpers"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
-    name: "search",
-    placeholder: "Search"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Search"));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Topbar);
 
 /***/ }),
 
