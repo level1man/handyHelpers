@@ -2124,12 +2124,12 @@ var users = [{
   userName: 'babyshark',
   passWord: 'babyshark',
   id: 1,
-  photo: 'https://i.pinimg.com/originals/25/b6/1f/25b61fa1dfeff4cf7c1691614ed9b38e.jpg'
+  photo: './images/babyshark.jpeg'
 }, {
   userName: 'daddyshark',
   passWord: 'daddyshark',
   id: 2,
-  photo: 'https://clipart.world/wp-content/uploads/2020/08/daddy-shark.jpg'
+  photo: './images/daddyshark.jpeg'
 }];
 
 var Login = function Login() {
@@ -2152,7 +2152,6 @@ var Login = function Login() {
 
     for (var i = 0; i < users.length; i++) {
       if (currentUser.userName === users[i].userName && currentUser.passWord === users[i].passWord) {
-        console.log('here');
         setCurrentUser(_objectSpread(_objectSpread({}, currentUser), {}, {
           id: users[i].id,
           photo: users[i].photo
